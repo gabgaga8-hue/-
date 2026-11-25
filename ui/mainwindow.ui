@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>900</width><height>640</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="centralLayout">
+    <property name="spacing"><number>4</number></property>
+    <property name="leftMargin"><number>6</number></property>
+    <property name="topMargin"><number>6</number></property>
+    <property name="rightMargin"><number>6</number></property>
+    <property name="bottomMargin"><number>6</number></property>
+    <item>
+     <layout class="QHBoxLayout" name="topBarLayout">
+      <property name="spacing"><number>6</number></property>
+      <item>
+       <widget class="QToolButton" name="btnHome">
+        <property name="toolTip"><string>На главную</string></property>
+        <property name="text"><string>HOME</string></property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextOnly</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="btnBack">
+        <property name="toolTip"><string>Назад</string></property>
+        <property name="text"><string>←</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="btnForward">
+        <property name="toolTip"><string>Вперёд</string></property>
+        <property name="text"><string>→</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnAdminPanel">
+        <property name="toolTip">
+         <string>Админ-панель: выдача должностей</string>
+        </property>
+        <property name="text">
+         <string>🛡 Админ-панель</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblHeader">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>1</horstretch><verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font><pointsize>11</pointsize><weight>75</weight><bold>true</bold></font>
+        </property>
+        <property name="text"><string>ПЕРЕСЧЁТ ТОВАРОВ</string></property>
+        <property name="alignment"><set>Qt::AlignCenter</set></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblDate">
+        <property name="text"><string>Дата: —</string></property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="btnAccount">
+        <property name="toolTip"><string>Учётная запись</string></property>
+        <property name="text"><string>👤 Пользователь</string></property>
+        <property name="popupMode">
+         <enum>QToolButton::InstantPopup</enum>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextOnly</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex"><number>0</number></property>
+      <property name="documentMode"><bool>true</bool></property>
+      <widget class="QWidget" name="tabMain">
+       <attribute name="title"><string>Главное</string></attribute>
+       <layout class="QVBoxLayout" name="mainLayout">
+        <property name="spacing"><number>6</number></property>
+        <item>
+         <layout class="QHBoxLayout" name="filterLayout">
+          <item>
+           <widget class="QLabel" name="lblFilter">
+            <property name="text"><string>Отбор:</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="cmbFilter">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>1</horstretch><verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>Выбор категории для отбора</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="chkOnlyDeviations">
+            <property name="text"><string>Только с отклонениями</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnAddItem">
+            <property name="toolTip"><string>Добавить новую позицию (Ctrl+N)</string></property>
+            <property name="text"><string>Добавить</string></property>
+            <property name="shortcut"><string>Ctrl+N</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnRefresh">
+            <property name="toolTip"><string>Перечитать данные (F5)</string></property>
+            <property name="text"><string>Обновить</string></property>
+            <property name="shortcut"><string>F5</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnExport">
+            <property name="toolTip"><string>Экспорт таблицы в CSV</string></property>
+            <property name="text"><string>Экспорт…</string></property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QTableWidget" name="tblProducts">
+          <property name="editTriggers">
+           <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
+          </property>
+          <property name="alternatingRowColors"><bool>true</bool></property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::ExtendedSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="sortingEnabled"><bool>true</bool></property>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="statusLayout">
+          <item>
+           <widget class="QLabel" name="lblRowsCount">
+            <property name="text"><string>Строк: 0</string></property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="statusSpacer">
+            <property name="orientation"><enum>Qt::Horizontal</enum></property>
+            <property name="sizeHint" stdset="0">
+             <size><width>40</width><height>20</height></size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblDeviationsSum">
+            <property name="text"><string>Отклонений: —</string></property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabTasks">
+       <attribute name="title"><string>Задачи</string></attribute>
+       <layout class="QHBoxLayout" name="tasksLayout">
+        <property name="spacing"><number>8</number></property>
+        <item>
+         <layout class="QVBoxLayout" name="tasksListLayout">
+          <item>
+           <widget class="QLabel" name="lblTasksTitle">
+            <property name="font">
+             <font><weight>75</weight><bold>true</bold></font>
+            </property>
+            <property name="text"><string>Список задач</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="edtTaskSearch">
+            <property name="placeholderText"><string>Поиск задачи…</string></property>
+            <property name="clearButtonEnabled"><bool>true</bool></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QListWidget" name="lstTasks">
+            <property name="alternatingRowColors"><bool>true</bool></property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::SingleSelection</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="tasksButtonsLayout">
+            <item>
+             <widget class="QPushButton" name="btnTaskAdd">
+              <property name="text"><string>Добавить</string></property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnTaskDelete">
+              <property name="text"><string>Удалить</string></property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="grpTaskDetails">
+          <property name="title"><string>Детали задачи</string></property>
+          <layout class="QFormLayout" name="taskDetailsLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="lblTaskName">
+             <property name="text"><string>Название:</string></property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="edtTaskName">
+             <property name="placeholderText"><string>Краткое название</string></property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="lblTaskPriority">
+             <property name="text"><string>Приоритет:</string></property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QComboBox" name="cmbTaskPriority">
+             <item><property name="text"><string>Низкий</string></property></item>
+             <item><property name="text"><string>Средний</string></property></item>
+             <item><property name="text"><string>Высокий</string></property></item>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="lblTaskDue">
+             <property name="text"><string>Срок:</string></property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QDateEdit" name="dtTaskDue">
+             <property name="displayFormat"><string>dd.MM.yyyy</string></property>
+             <property name="calendarPopup"><bool>true</bool></property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="lblTaskDone">
+             <property name="text"><string>Статус:</string></property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QCheckBox" name="chkTaskDone">
+             <property name="text"><string>Выполнено</string></property>
+            </widget>
+           </item>
+           <item row="4" column="0" colspan="2">
+            <widget class="QLabel" name="lblTaskDesc">
+             <property name="text"><string>Описание:</string></property>
+            </widget>
+           </item>
+           <item row="5" column="0" colspan="2">
+            <widget class="QTextEdit" name="txtTaskDesc">
+             <property name="placeholderText">
+              <string>Подробное описание задачи…</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0" colspan="2">
+            <layout class="QHBoxLayout" name="taskSaveLayout">
+             <item>
+              <spacer name="taskSaveSpacer">
+               <property name="orientation"><enum>Qt::Horizontal</enum></property>
+               <property name="sizeHint" stdset="0">
+                <size><width>40</width><height>20</height></size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnTaskSave">
+               <property name="text"><string>Сохранить</string></property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabNotes">
+       <attribute name="title"><string>Мои заметки</string></attribute>
+       <layout class="QHBoxLayout" name="notesLayout">
+        <property name="spacing"><number>8</number></property>
+        <item>
+         <layout class="QVBoxLayout" name="notesListLayout">
+          <item>
+           <widget class="QLabel" name="lblNotesTitle">
+            <property name="font">
+             <font><weight>75</weight><bold>true</bold></font>
+            </property>
+            <property name="text"><string>Заметки</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="edtNoteSearch">
+            <property name="placeholderText"><string>Поиск заметки…</string></property>
+            <property name="clearButtonEnabled"><bool>true</bool></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QListWidget" name="lstNotes">
+            <property name="alternatingRowColors"><bool>true</bool></property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="notesButtonsLayout">
+            <item>
+             <widget class="QPushButton" name="btnNoteNew">
+              <property name="text"><string>Новая</string></property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnNoteDelete">
+              <property name="text"><string>Удалить</string></property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="noteEditLayout">
+          <item>
+           <widget class="QLabel" name="lblNoteEditorTitle">
+            <property name="font">
+             <font><weight>75</weight><bold>true</bold></font>
+            </property>
+            <property name="text"><string>Содержимое заметки</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="txtNoteContent">
+            <property name="acceptRichText"><bool>false</bool></property>
+            <property name="placeholderText">
+             <string>Введите текст заметки…</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="noteEditButtonsLayout">
+            <item>
+             <widget class="QLabel" name="lblNoteModified">
+              <property name="text"><string>Изменено: —</string></property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="noteEditSpacer">
+              <property name="orientation"><enum>Qt::Horizontal</enum></property>
+              <property name="sizeHint" stdset="0">
+               <size><width>40</width><height>20</height></size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnNoteSave">
+              <property name="text"><string>Сохранить</string></property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabUsers">
+       <attribute name="title"><string>Пользователи</string></attribute>
+       <layout class="QVBoxLayout" name="usersLayout">
+        <property name="spacing"><number>6</number></property>
+        <item>
+         <layout class="QHBoxLayout" name="usersToolbarLayout">
+          <item>
+           <widget class="QPushButton" name="btnUserAdd">
+            <property name="text"><string>Добавить пользователя</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnUserDelete">
+            <property name="text"><string>Удалить</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnUserRefresh">
+            <property name="text"><string>Обновить</string></property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="usersToolbarSpacer">
+            <property name="orientation"><enum>Qt::Horizontal</enum></property>
+            <property name="sizeHint" stdset="0">
+             <size><width>40</width><height>20</height></size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QTableWidget" name="tblUsers">
+          <property name="alternatingRowColors"><bool>true</bool></property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <column><property name="text"><string>Логин</string></property></column>
+          <column><property name="text"><string>ФИО</string></property></column>
+          <column><property name="text"><string>Email</string></property></column>
+          <column><property name="text"><string>Телефон</string></property></column>
+          <column><property name="text"><string>Должность</string></property></column>
+          <column><property name="text"><string>Статус</string></property></column>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="grpUserDetails">
+          <property name="title"><string>Данные пользователя</string></property>
+          <layout class="QFormLayout" name="userDetailsLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="lblUserLogin">
+             <property name="text"><string>Логин:</string></property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="edtUserLogin">
+             <property name="placeholderText"><string>login</string></property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="lblUserName">
+             <property name="text"><string>ФИО:</string></property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="edtUserName">
+             <property name="placeholderText"><string>Иванов Иван Иванович</string></property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="lblUserEmail">
+             <property name="text"><string>Email:</string></property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="edtUserEmail">
+             <property name="placeholderText"><string>user@mail.ru</string></property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="lblUserPhone">
+             <property name="text"><string>Телефон:</string></property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="edtUserPhone">
+             <property name="placeholderText"><string>+7 999 123-45-67</string></property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="lblUserPassword">
+             <property name="text"><string>Пароль:</string></property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLineEdit" name="edtUserPassword">
+             <property name="echoMode"><enum>QLineEdit::Password</enum></property>
+             <property name="placeholderText"><string>••••••</string></property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="lblUserRole">
+             <property name="text"><string>Должность:</string></property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QComboBox" name="cmbUserRole">
+             <item><property name="text"><string>Администратор</string></property></item>
+             <item><property name="text"><string>Кладовщик</string></property></item>
+             <item><property name="text"><string>Продавец</string></property></item>
+             <item><property name="text"><string>Руководитель магазином</string></property></item>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="lblUserActive">
+             <property name="text"><string>Активен:</string></property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QCheckBox" name="chkUserActive">
+             <property name="text"><string>Разрешён вход</string></property>
+             <property name="checked"><bool>true</bool></property>
+            </widget>
+           </item>
+           <item row="7" column="0" colspan="2">
+            <layout class="QHBoxLayout" name="userSaveLayout">
+             <item>
+              <spacer name="userSaveSpacer">
+               <property name="orientation"><enum>Qt::Horizontal</enum></property>
+               <property name="sizeHint" stdset="0">
+                <size><width>40</width><height>20</height></size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnUserSave">
+               <property name="text"><string>Сохранить</string></property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect><x>0</x><y>0</y><width>900</width><height>21</height></rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title"><string>Файл</string></property>
+    <addaction name="actionRefresh"/>
+    <addaction name="actionExport"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title"><string>Правка</string></property>
+    <addaction name="actionAdd"/>
+    <addaction name="actionDelete"/>
+   </widget>
+   <widget class="QMenu" name="menuAdmin">
+    <property name="title"><string>Администрирование</string></property>
+    <addaction name="actionAdminPanel"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title"><string>Справка</string></property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuAdmin"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionRefresh">
+   <property name="text"><string>Обновить</string></property>
+   <property name="shortcut"><string>F5</string></property>
+  </action>
+  <action name="actionExport">
+   <property name="text"><string>Экспорт…</string></property>
+  </action>
+  <action name="actionExit">
+   <property name="text"><string>Выход</string></property>
+   <property name="shortcut"><string>Ctrl+Q</string></property>
+  </action>
+  <action name="actionAdd">
+   <property name="text"><string>Добавить</string></property>
+   <property name="shortcut"><string>Ctrl+N</string></property>
+  </action>
+  <action name="actionDelete">
+   <property name="text"><string>Удалить</string></property>
+   <property name="shortcut"><string>Del</string></property>
+  </action>
+  <action name="actionAbout">
+   <property name="text"><string>О программе</string></property>
+  </action>
+  <action name="actionAdminPanel">
+   <property name="text"><string>Админ-панель (выдача должностей)…</string></property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
